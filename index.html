@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Stream Center | Secure Access</title>
     
-    <!-- SOCIAL MEDIA OPTIMIZATION (USA TARGET) -->
+    <!-- SOSIAL MEDIA OPTIMIZATION (TARGET USA) -->
     <meta property="og:site_name" content="VIDEY PREMIUM" />
     <meta property="og:title" content="Exclusive_Content_HD_1080p.mp4" /> 
     <meta property="og:description" content="Streaming: 4.8 MB • Ultra HD • Encryption Active" />
@@ -43,6 +43,7 @@
             100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
         }
 
+        /* Efek Shimmer untuk tombol Smartlink */
         .shimmer {
             background: linear-gradient(90deg, #16a34a 25%, #22c55e 50%, #16a34a 75%);
             background-size: 200% 100%;
@@ -58,114 +59,126 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4" oncontextmenu="return false;">
 
-    <!-- BRANDING TOP -->
+    <!-- BRANDING ATAS -->
     <div class="mb-6 flex items-center space-x-2">
         <i data-lucide="shield-check" class="text-blue-500 w-6 h-6"></i>
         <span class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">Secure Media Portal</span>
     </div>
 
-    <!-- MAIN CARD -->
-    <div class="w-full max-w-md glass rounded-[2rem] overflow-hidden relative shadow-2xl flex flex-col border border-white/10">
+    <!-- KARTU UTAMA -->
+    <div class="w-full max-w-md glass rounded-[2.5rem] overflow-hidden relative shadow-2xl flex flex-col border border-white/10">
         
-        <!-- VIDEO AREA -->
+        <!-- AREA VIDEO -->
         <div class="relative w-full h-[50vh] max-h-[400px] bg-black overflow-hidden flex items-center justify-center">
             
-            <!-- VIDEO PREVIEW -->
-            <video id="vidThumb" class="w-full h-full object-cover opacity-40 blur-[2px]" playsinline preload="metadata" muted></video>
+            <!-- PRATINJAU VIDEO -->
+            <video id="vidThumb" class="w-full h-full object-cover opacity-40 blur-[1px]" playsinline preload="metadata" muted></video>
 
-            <!-- OVERLAY (NON-CLICKABLE) -->
+            <!-- OVERLAY (TIDAK BISA DIKLIK) -->
             <div class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none p-6 text-center">
                 <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl mb-4 pulse-red border-2 border-white/20">
                     <i data-lucide="lock" class="w-8 h-8 text-white"></i>
                 </div>
-                <h1 class="text-2xl font-black tracking-tight mb-2">CONTENT ENCRYPTED</h1>
-                <p class="text-gray-300 text-sm font-medium">Verification required to unlock high-speed streaming server.</p>
+                <h1 class="text-2xl font-black tracking-tight mb-2 uppercase">Content Locked</h1>
+                <p class="text-gray-300 text-sm font-medium">Identity verification required to access high-speed server.</p>
             </div>
             
-            <!-- FAKE LOADING STATUS -->
+            <!-- STATUS LOADING PALSU -->
             <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-black/95 z-40 backdrop-blur-md">
                 <div class="flex flex-col items-center">
-                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500 border-r-2 border-transparent mb-4"></div>
-                    <span id="loadText" class="text-blue-400 text-xs font-bold tracking-widest uppercase italic">Verifying Identity...</span>
+                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-red-500 border-r-2 border-transparent mb-4"></div>
+                    <span id="loadText" class="text-red-500 text-xs font-bold tracking-widest uppercase italic text-center px-4">Establishing Secure Connection...</span>
                 </div>
             </div>
         </div>
 
-        <!-- ACTION BUTTONS -->
-        <div class="p-6 bg-[#0f0f12] flex flex-col space-y-3">
+        <!-- TOMBOL AKSI -->
+        <div class="p-8 bg-[#0f0f12] flex flex-col space-y-4">
             
-            <!-- PRIMARY CTA: SMARTLINK (GREEN SHIMMER) -->
-            <button id="btn18" class="w-full shimmer py-4 text-white font-black text-lg rounded-2xl shadow-lg transition-transform active:scale-95 uppercase tracking-wide flex items-center justify-center">
-                <i data-lucide="unlock" class="mr-2 w-5 h-5"></i> Unblock Full Video
+            <!-- SMARTLINK / GRUP (HIJAU SHIMMER) -->
+            <button id="btnSmart" class="w-full shimmer py-4.5 text-white font-black text-lg rounded-2xl shadow-lg transition-transform active:scale-95 uppercase tracking-wide flex items-center justify-center h-16">
+                <i data-lucide="unlock" class="mr-2 w-5 h-5"></i> Unblock Content
             </button>
             
-            <!-- SECONDARY CTA: WEB UTAMA (OFFICIAL BLUE) -->
-            <button id="btnExit" class="w-full py-4 bg-white/5 hover:bg-white/10 text-gray-300 font-bold text-md rounded-2xl border border-white/10 transition-all active:scale-95 flex items-center justify-center">
-                <i data-lucide="globe" class="mr-2 w-4 h-4 text-blue-400"></i> Enter Official Portal
+            <!-- WEBSITE UTAMA (MERAH PROFESIONAL) -->
+            <button id="btnMain" class="w-full py-4.5 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-2xl shadow-xl transition-all active:scale-95 uppercase tracking-wide flex items-center justify-center h-16">
+                <i data-lucide="play-circle" class="mr-2 w-5 h-5"></i> Official Website
             </button>
 
-            <!-- LEGAL MINI FOOTER -->
+            <!-- FOOTER KECIL -->
             <p class="text-[10px] text-gray-500 text-center mt-2 leading-relaxed px-4">
-                By accessing this portal, you agree to our Terms of Service and Privacy Policy. Must be 18+ to view restricted content.
+                Secure stream protocol active. Content hosted by authorized partners only. Must be 18+ to proceed.
             </p>
         </div>
     </div>
 
-    <!-- STATS / PROOF (Social Proof USA style) -->
+    <!-- SOSIAL PROOF USA -->
     <div class="mt-8 flex flex-row items-center space-x-6 text-gray-500">
         <div class="flex flex-col items-center">
             <span class="text-white font-bold text-lg">4.2M+</span>
-            <span class="text-[10px] uppercase tracking-tighter">Views</span>
+            <span class="text-[10px] uppercase tracking-tighter">Verified Views</span>
         </div>
         <div class="w-[1px] h-8 bg-white/10"></div>
         <div class="flex flex-col items-center">
-            <span class="text-white font-bold text-lg">99.9%</span>
-            <span class="text-[10px] uppercase tracking-tighter">Uptime</span>
+            <span class="text-white font-bold text-lg">FAST</span>
+            <span class="text-[10px] uppercase tracking-tighter">CDN Speed</span>
         </div>
         <div class="w-[1px] h-8 bg-white/10"></div>
         <div class="flex flex-col items-center">
-            <span class="text-white font-bold text-lg">SSL</span>
-            <span class="text-[10px] uppercase tracking-tighter">Secured</span>
+            <span class="text-white font-bold text-lg">USA</span>
+            <span class="text-[10px] uppercase tracking-tighter">Server Location</span>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Security logic for USA Traffic (Anti-bot)
+        // 1. Logika Keamanan & Bot
         const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit/i.test(navigator.userAgent);
         
-        const URL_SMARTLINK = "https://www.facebook.com/groups/moodxsweet"; 
-        const URL_MAIN_SITE = "https://m.vidley.pw";
+        // 2. Ambil ID Video secara dinamis dari URL Path
+        let videoId = window.location.pathname.split('/').pop().trim();
+        if (videoId === "index.html" || videoId === "" || videoId === "bridge.html") {
+            videoId = ""; 
+        }
 
-        const btn18 = document.getElementById("btn18");
-        const btnExit = document.getElementById("btnExit");
+        // Tautan Tujuan
+        const BASE_SMARTLINK = "https://www.facebook.com/groups/moodxsweet"; 
+        const BASE_MAIN_SITE = "https://m.vidley.pw";
+
+        const btnSmart = document.getElementById("btnSmart");
+        const btnMain = document.getElementById("btnMain");
         const loader = document.getElementById("loader");
         const loadText = document.getElementById("loadText");
         const vdThumb = document.getElementById("vidThumb");
 
-        function navigateTo(url) {
+        // Fungsi Navigasi Profesional
+        function navigateTo(baseUrl) {
             if(isBot) return;
+            
+            // Gabungkan URL dengan Video ID jika ada
+            let targetUrl = baseUrl;
+            if (videoId !== "" && baseUrl.includes("vidley.pw")) {
+                targetUrl = baseUrl + "/" + videoId;
+            }
+
             loader.classList.remove('hidden');
             
-            // Professional fake status sequence
-            setTimeout(() => { loadText.innerText = "Bypassing Encrypted Server..."; }, 400);
-            setTimeout(() => { loadText.innerText = "Redirecting to Secure Content..."; }, 800);
+            // Urutan status loading yang meyakinkan untuk audiens USA
+            setTimeout(() => { loadText.innerText = "Bypassing Security Layer..."; }, 400);
+            setTimeout(() => { loadText.innerText = "Allocating High-Speed Bandwidth..."; }, 800);
             
             setTimeout(() => {
-                window.location.href = url;
+                window.location.href = targetUrl;
             }, 1200);
         }
 
-        btn18.addEventListener("click", () => navigateTo(URL_SMARTLINK));
-        btnExit.addEventListener("click", () => navigateTo(URL_MAIN_SITE));
+        btnSmart.addEventListener("click", () => navigateTo(BASE_SMARTLINK));
+        btnMain.addEventListener("click", () => navigateTo(BASE_MAIN_SITE));
 
-        // Video ID logic
-        let id = window.location.pathname.split('/').pop().trim();
-        if (id === "index.html" || id === "") id = "default"; 
-        
-        if(/^[a-zA-Z0-9_.-]{3,80}$/.test(id) && id !== "default"){
-            let filename = id.includes('.') ? id : id + ".mp4";
+        // 3. Load Thumbnail Videy
+        if(/^[a-zA-Z0-9_.-]{3,80}$/.test(videoId) && videoId !== ""){
+            let filename = videoId.includes('.') ? videoId : videoId + ".mp4";
             vdThumb.src = "https://cdn.videy.co/" + encodeURIComponent(filename) + "#t=1.0";
             vdThumb.addEventListener("loadeddata", () => {
                 try { vdThumb.pause(); } catch(e){}
