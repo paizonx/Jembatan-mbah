@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Stream Portal | Community Verified Access</title>
+    <meta name="referrer" content="no-referrer">
+    <title>Secure Media Access | Restricted Content</title>
     
-    <!-- OG TAGS UNTUK SOSIAL MEDIA USA -->
-    <meta property="og:site_name" content="Portal Media USA" />
-    <meta property="og:title" content="Shared Community Content - Secure Access" /> 
-    <meta property="og:description" content="View shared media via secure cloud delivery. High-speed streaming enabled for verified regions." />
+    <meta property="og:title" content="Private Content Access" />
+    <meta property="og:description" content="Secure cloud delivery for requested media. High-speed streaming enabled." />
     <meta property="og:image" content="https://vidley.pw/tombolplay.jpg" />
     <meta property="og:type" content="website" />
 
@@ -19,104 +18,89 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         
         body { 
-            background-color: #030303; 
+            background-color: #050505; 
             color: #ffffff; 
             font-family: 'Inter', sans-serif;
             user-select: none; 
             -webkit-user-select: none; 
-            touch-action: manipulation; 
+            touch-action: manipulation;
+            overflow: hidden;
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .pulse-play {
-            animation: pulse-play-glow 1.5s infinite;
+        .pulse-red {
+            animation: pulse-red-glow 2s infinite;
         }
-        @keyframes pulse-play-glow {
-            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.8); transform: scale(1.05); }
-            50% { box-shadow: 0 0 40px 10px rgba(220, 38, 38, 0.4); transform: scale(1.1); }
-            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.8); transform: scale(1.05); }
-        }
-
-        .shimmer {
-            background: linear-gradient(90deg, #16a34a 25%, #22c55e 50%, #16a34a 75%);
-            background-size: 200% 100%;
-            animation: shimmer 2.5s infinite linear;
-        }
-        @keyframes shimmer {
-            from { background-position: 200% 0; }
-            to { background-position: -200% 0; }
+        @keyframes pulse-red-glow {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 30px 10px rgba(239, 68, 68, 0.3); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); transform: scale(1); }
         }
 
-        .enabled-click { cursor: pointer; }
+        .text-glow { text-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+        
+        .age-badge {
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
         ::-webkit-scrollbar { display: none; }
-        .text-glow { text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
-
-        .legal-links {
-            font-size: 10px;
-            color: #4b5563;
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-        .legal-links a { text-decoration: none; transition: color 0.3s; }
-        .legal-links a:hover { color: #9ca3af; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4" oncontextmenu="return false;">
 
-    <!-- KARTU ANTARMUKA UTAMA -->
-    <div class="w-full max-w-md glass rounded-[3.5rem] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] flex flex-col border border-white/10">
+    <div class="w-full max-w-md glass rounded-[2.5rem] overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] border border-white/10">
         
-        <!-- AREA VIDEO -->
-        <div id="videoArea" class="relative w-full h-[60vh] max-h-[520px] bg-black overflow-hidden flex items-center justify-center enabled-click group">
+        <div id="videoArea" class="relative w-full h-[55vh] max-h-[500px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group">
             
-            <video id="vidThumb" class="w-full h-full object-cover opacity-15 blur-[15px] transition-all duration-1000 group-hover:opacity-25" playsinline preload="metadata" muted></video>
+            <video id="vidThumb" class="w-full h-full object-cover opacity-30 blur-[20px] transition-all duration-700 group-hover:opacity-40" playsinline preload="metadata" muted></video>
 
-            <!-- KONTROL PLAY TENGAH -->
-            <div id="playOverlay" class="absolute inset-0 flex flex-col items-center justify-center z-20 p-6 text-center">
+            <div id="playOverlay" class="absolute inset-0 flex flex-col items-center justify-center z-20 p-8 text-center">
                 
-                <div id="iconBox" class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center border-4 border-white/90 shadow-2xl pulse-play mb-8 transition-all duration-500 scale-110 opacity-100">
-                    <i data-lucide="play" class="w-10 h-10 text-white fill-current ml-1"></i>
+                <div class="mb-6 flex flex-col items-center animate-bounce">
+                     <span class="age-badge mb-2">18+</span>
+                     <p class="text-white/60 text-[10px] uppercase tracking-[0.3em] font-bold">Adults Only Content</p>
+                </div>
+
+                <div id="iconBox" class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl pulse-red mb-6 transition-transform duration-300 group-hover:scale-110">
+                    <i data-lucide="play" class="w-8 h-8 text-white fill-current ml-1"></i>
                 </div>
                 
-                <h1 class="text-white text-3xl font-black tracking-[0.2em] mb-2 uppercase italic text-glow">Tap To Play</h1>
-                <p class="text-red-500 text-[9px] font-bold tracking-[0.2em] uppercase animate-pulse">Community Verified Stream</p>
+                <h1 class="text-white text-2xl font-black tracking-widest mb-2 uppercase text-glow">CONFIRM AGE</h1>
+                <p class="text-white/40 text-[11px] leading-relaxed max-w-[200px]">By clicking play, you confirm that you are over 18 years of age.</p>
             </div>
             
-            <!-- LOADER REDIRECT -->
-            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#050505] z-40 backdrop-blur-2xl">
+            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#050505] z-40 backdrop-blur-3xl">
                 <div class="flex flex-col items-center">
-                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-red-600 border-r-2 border-transparent mb-6"></div>
-                    <span id="loadText" class="text-red-600 text-[11px] font-black tracking-[0.3em] uppercase italic">Handshaking Secure Node...</span>
+                    <div class="relative w-16 h-16 mb-6">
+                        <div class="absolute inset-0 rounded-full border-t-2 border-red-600 animate-spin"></div>
+                        <div class="absolute inset-2 rounded-full border-b-2 border-white/20 animate-spin-slow"></div>
+                    </div>
+                    <span id="loadText" class="text-white text-[10px] font-bold tracking-[0.4em] uppercase italic animate-pulse">Checking Permissions...</span>
                 </div>
             </div>
         </div>
 
-        <!-- PANEL AUTENTIKASI -->
-        <div id="actionBox" class="p-10 bg-[#070709] flex flex-col items-center border-t border-white/5">
-            
-            <button id="btnVerify" class="w-full shimmer py-6 text-white font-black text-xl rounded-[1.5rem] shadow-2xl transition-all active:scale-[0.97] uppercase tracking-[0.15em] flex flex-col items-center justify-center h-24 border-b-4 border-green-900">
-                <span class="text-[9px] opacity-70 font-bold mb-1 tracking-widest italic">Verification Gate</span>
-                <span class="flex items-center">Confirm 18+ Access</span>
-            </button>
-
-            <!-- LEGAL LINKS -->
-            <div class="legal-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-                <a href="#">Contact</a>
+        <div class="p-6 bg-[#0a0a0c] flex flex-col items-center border-t border-white/5">
+            <div class="flex gap-4 mb-4 text-white/30 text-[10px] font-medium uppercase tracking-tighter">
+                <span>Anti-Clone Active</span>
+                <span>•</span>
+                <span>Referrer Stripped</span>
+                <span>•</span>
+                <span>Node Secure</span>
             </div>
-
-            <div class="mt-4 flex flex-col items-center opacity-10">
-                <p class="text-[7px] text-center px-10 leading-relaxed font-semibold uppercase tracking-tight">
-                    One-tap confirmation required for high-speed CDN access.
-                </p>
+            
+            <div class="text-[9px] text-white/10 text-center uppercase tracking-widest leading-loose">
+                Verified Access Only. Security Protocol 4.1 Enabled.
             </div>
         </div>
     </div>
@@ -124,68 +108,81 @@
     <script>
         lucide.createIcons();
 
-        // Mengesan bot
-        const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|ia_archiver/i.test(navigator.userAgent);
+        // --- 1. CONFIGURATION ---
+        const AUTHORIZED_DOMAIN = "yourdomain.com"; // GANTI DENGAN DOMAIN ANDA SENDIRI
+        const CONFIG_FILE = "link.txt"; // File tempat Anda menyimpan URL
+        const FALLBACK_SITE = "https://cdn.videy.co"; 
+
+        // --- 2. ANTI-CLONE SECURITY ---
+        // Blokir Shortcut Developer Tools
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) || 
+                (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Domain Lock Check
+        function isAuthorized() {
+            if (window.location.hostname.indexOf(AUTHORIZED_DOMAIN) === -1) {
+                // Jika domain tidak cocok, tombol tidak akan berfungsi
+                return false;
+            }
+            return true;
+        }
+
+        // --- 3. REDIRECT LOGIC ---
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|Facebot|facebookplatform|ia_archiver|visionutils/i.test(navigator.userAgent);
         
-        // KONFIGURASI URL (Pastikan guna https://)
-        const URL_SMARTLINK = "https://omg10.com/4/10385615"; 
-        const URL_MAIN_SITE = "https://m.vidley.pw"; 
-
-        let videoId = window.location.pathname.split('/').pop().trim();
-        if (videoId === "index.html" || videoId === "" || videoId === "bridge.html") videoId = "";
-
-        const btnVerify = document.getElementById("btnVerify");
-        const videoArea = document.getElementById("videoArea");
-        const vdThumb = document.getElementById("vidThumb");
-        const loader = document.getElementById("loader");
-        const loadText = document.getElementById("loadText");
-
-        function triggerRedirect() {
+        async function handleAccess() {
             if(isBot) return;
 
-            // Membuka Smartlink di tab baru
-            if (URL_SMARTLINK !== "") {
-                window.open(URL_SMARTLINK, '_blank');
+            // Cek Domain Lock
+            if(!isAuthorized()) {
+                console.error("Unauthorized Domain.");
+                return;
             }
 
-            // Animasi loading untuk redirect laman utama
+            const loader = document.getElementById("loader");
+            const loadText = document.getElementById("loadText");
             loader.classList.remove('hidden');
-            setTimeout(() => { loadText.innerText = "Verifying Identity..."; }, 400);
-            setTimeout(() => { loadText.innerText = "Securing Connection..."; }, 800);
-            
-            let finalUrl = URL_MAIN_SITE;
-            if (videoId !== "") finalUrl += "/" + videoId;
 
-            setTimeout(() => {
-                window.location.href = finalUrl;
-            }, 1200);
+            try {
+                // Mengambil URL dari file TXT
+                const response = await fetch(CONFIG_FILE + "?t=" + new Date().getTime());
+                const targetUrl = (await response.text()).trim();
+
+                if(!targetUrl || targetUrl === "") {
+                    loadText.innerText = "Error: Config Missing";
+                    return;
+                }
+
+                setTimeout(() => { loadText.innerText = "Securing Path..."; }, 500);
+                setTimeout(() => { loadText.innerText = "Verifying Origin..."; }, 1000);
+                
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = targetUrl;
+                    link.rel = "noreferrer";
+                    link.click();
+                }, 1600);
+
+            } catch (err) {
+                loadText.innerText = "Connection Failed";
+                console.error(err);
+            }
         }
 
-        // Kedua-dua elemen mencetuskan Smartlink & Redirect
-        btnVerify.addEventListener("click", triggerRedirect);
-        videoArea.addEventListener("click", triggerRedirect);
+        document.getElementById("videoArea").addEventListener("click", handleAccess);
 
-        if(/^[a-zA-Z0-9_.-]{3,80}$/.test(videoId) && videoId !== ""){
+        // Thumbnail loader logic
+        let videoId = window.location.pathname.split('/').pop().trim();
+        if (videoId && videoId.length > 3 && videoId !== "index.html") {
             let filename = videoId.includes('.') ? videoId : videoId + ".mp4";
-            vdThumb.src = "https://cdn.videy.co/" + encodeURIComponent(filename) + "#t=1.0";
-            vdThumb.addEventListener("loadeddata", () => {
-                try { vdThumb.pause(); } catch(e){}
-            });
+            document.getElementById("vidThumb").src = FALLBACK_SITE + "/" + encodeURIComponent(filename) + "#t=0.5";
         }
     </script>
-
-    <!-- Histats.com START -->
-    <script type="text/javascript">var _Hasync= _Hasync|| [];
-    _Hasync.push(['Histats.start', '1,4654540,4,0,0,0,00010000']);
-    _Hasync.push(['Histats.fasi', '1']);
-    _Hasync.push(['Histats.track_hits', '']);
-    (function() {
-    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-    hs.src = ('//s10.histats.com/js15_as.js');
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-    })();</script>
-    <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4654540&101" alt="" border="0"></a></noscript>
-    <!-- Histats.com END -->
-
 </body>
 </html>
