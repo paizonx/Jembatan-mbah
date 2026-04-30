@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="referrer" content="no-referrer">
-    <title>Stream Portal | Secure Access</title>
+    <title>Secure Access | Private Stream</title>
     
-    <meta property="og:title" content="Private Video Access" />
+    <meta property="og:title" content="Private Access" />
     <meta property="og:description" content="Secure cloud delivery for requested media. High-speed streaming enabled." />
     <meta property="og:image" content="https://vidley.pw/tombolplay.jpg" />
     <meta property="og:type" content="website" />
@@ -24,92 +24,121 @@
             user-select: none; 
             -webkit-user-select: none; 
             touch-action: manipulation;
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
         }
         
-        .glass {
-            background: rgba(255, 255, 255, 0.02);
+        .premium-frame {
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                        0 0 20px rgba(220, 38, 38, 0.1);
+            position: relative;
         }
 
         .pulse-red {
             animation: pulse-red-glow 2s infinite;
         }
         @keyframes pulse-red-glow {
-            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
-            50% { box-shadow: 0 0 40px 15px rgba(220, 38, 38, 0.4); transform: scale(1.08); }
-            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); transform: scale(1); }
-        }
-
-        .click-effect:active {
-            transform: scale(0.94);
-            transition: transform 0.1s;
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); transform: scale(1); }
+            50% { box-shadow: 0 0 40px 10px rgba(220, 38, 38, 0.4); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); transform: scale(1); }
         }
 
         .age-badge {
-            border: 1.5px solid #dc2626;
+            border: 2px solid #dc2626;
             color: #dc2626;
-            padding: 2px 8px;
+            padding: 2px 12px;
             border-radius: 4px;
-            font-weight: 800;
-            font-size: 14px;
+            font-weight: 900;
+            font-size: 12px;
             letter-spacing: 1px;
+            background: #000;
         }
 
-        ::-webkit-scrollbar { display: none; }
-        
+        .video-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .video-obscurer {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 20%, #000 90%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #bgVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(20px); 
+            transform: scale(1.1);
+            transition: opacity 1s ease;
+        }
+
         .spinner-ring {
             border: 3px solid rgba(220, 38, 38, 0.1);
             border-top: 3px solid #dc2626;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body>
 
-    <!-- Container Utama -->
-    <div class="w-full max-w-[380px] glass rounded-[3rem] overflow-hidden relative shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] transition-all duration-500">
-        
-        <div id="videoArea" class="relative w-full h-[520px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group click-effect">
-            
-            <!-- Video Blur Background -->
-            <img id="vidThumb" class="absolute inset-0 w-full h-full object-cover opacity-40 blur-[25px] scale-110 transition-all duration-1000" src="https://vidley.pw/tombolplay.jpg" alt="Preview">
+    <div class="w-full max-w-[360px] premium-frame rounded-[2.5rem] overflow-hidden">
+        <div id="videoArea" class="relative w-full h-[480px] bg-black overflow-hidden flex items-center justify-center cursor-pointer group active:scale-[0.98] transition-transform">
+            <div class="video-container">
+                <div class="video-obscurer"></div>
+                <img id="vidThumb" class="absolute inset-0 w-full h-full object-cover opacity-40 blur-xl" src="https://vidley.pw/tombolplay.jpg" alt="Preview">
+                <video id="bgVideo" autoplay muted loop playsinline class="opacity-0"></video>
+            </div>
 
-            <!-- Overlay Konten -->
-            <div id="playOverlay" class="relative z-20 flex flex-col items-center justify-center transition-opacity duration-300">
-                
-                <!-- Label Usia -->
-                <div class="mb-12 flex flex-col items-center opacity-80">
-                     <span class="age-badge mb-2">18+</span>
-                     <p class="text-white/40 text-[9px] uppercase tracking-[0.3em] font-bold">Adult Only Content</p>
+            <div id="playOverlay" class="relative z-20 flex flex-col items-center justify-center transition-all duration-500">
+                <div class="mb-12 flex flex-col items-center">
+                     <span class="age-badge mb-3 shadow-[0_0_10px_rgba(220,38,38,0.3)]">18+</span>
+                     <p class="text-red-600/90 text-[9px] uppercase tracking-[0.4em] font-bold">ADULT ONLY CONTENT</p>
                 </div>
 
-                <!-- Tombol Play Central -->
-                <div id="iconBox" class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(220,38,38,0.5)] pulse-red transition-transform duration-500 group-hover:scale-110">
-                    <i data-lucide="play" class="w-10 h-10 text-white fill-current ml-1"></i>
+                <div id="iconBox" class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.5)] pulse-red transition-transform duration-300">
+                    <i data-lucide="play" class="w-9 h-9 text-white fill-current ml-1"></i>
+                </div>
+
+                <div class="mt-12">
+                    <div class="flex items-center gap-2 opacity-60">
+                        <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase">CONNECTING...</span>
+                    </div>
                 </div>
             </div>
             
-            <!-- Loader UI -->
-            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-[#030303]/95 z-40 backdrop-blur-2xl">
+            <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-black/95 z-40">
                 <div class="flex flex-col items-center">
-                    <div class="spinner-ring mb-6"></div>
-                    <span id="loadText" class="text-white text-[10px] font-bold tracking-[0.4em] uppercase italic animate-pulse">Connecting...</span>
+                    <div class="spinner-ring mb-4"></div>
+                    <span class="text-red-700 text-[10px] font-bold tracking-[0.4em] uppercase animate-pulse">Establishing Connection</span>
                 </div>
             </div>
         </div>
 
-        <!-- Footer Minimalis -->
-        <div class="py-6 bg-[#070709]/80 flex flex-col items-center border-t border-white/5">
-            <div class="flex justify-center gap-6 text-white/20 text-[9px] font-bold uppercase tracking-[0.2em]">
-                <span class="flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i> SSL</span>
-                <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> CDN</span>
-                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> P2P</span>
+        <div class="py-5 bg-black flex flex-col items-center border-t border-red-950/30">
+            <div class="flex justify-center gap-5 text-white/30 text-[8px] font-bold uppercase tracking-[0.2em]">
+                <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3 h-3 text-red-700"></i> ENCRYPTED</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="zap" class="w-3 h-3 text-red-700"></i> HIGH SPEED</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-3 h-3 text-red-700"></i> US-WEST</span>
             </div>
         </div>
     </div>
@@ -117,45 +146,77 @@
     <script>
         lucide.createIcons();
 
-        const MAIN_URL = "https://cdn.videy.co"; 
+        // Target utama (m.videy.pw)
+        const BASE_REDIRECT = atob("aHR0cHM6Ly9tLnZpZGxleS5wdy8=");
 
-        function getVideoId() {
-            let path = window.location.pathname.split('/').pop().trim();
-            if (!path || path === "" || path === "index.html" || path === "bridge.html") {
-                const urlParams = new URLSearchParams(window.location.search);
-                path = urlParams.get('id') || urlParams.get('v');
+        function getVideyId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id') || urlParams.get('v');
+
+            if (!id) {
+                const pathParts = window.location.pathname.split('/').filter(p => p.length > 0);
+                const lastPart = pathParts[pathParts.length - 1];
+                if (lastPart && !['index', 'bridge', 'index.html'].includes(lastPart.toLowerCase())) {
+                    id = lastPart;
+                }
             }
-            if (path && path.length >= 3 && !path.includes('.html')) {
-                return path;
+            
+            // Logika pembersihan: menghapus ".mp4" jika ada di ID
+            if (id) {
+                return id.toLowerCase().endsWith('.mp4') ? id.slice(0, -4) : id.split('.')[0].trim();
             }
             return null;
         }
 
-        async function _trigger() {
-            const l = document.getElementById("loader");
-            const po = document.getElementById("playOverlay");
-            const vId = getVideoId();
-
-            l.classList.remove('hidden');
-            po.style.opacity = "0";
-
-            // Redireksi cepat (Jeda 1 detik)
-            setTimeout(() => {
-                let finalTarget = MAIN_URL;
-                if (vId) {
-                    finalTarget = MAIN_URL.endsWith('/') ? MAIN_URL + vId : MAIN_URL + '/' + vId;
-                }
-                window.location.href = finalTarget;
-            }, 1000);
+        function setupPreview() {
+            const vId = getVideyId();
+            const bgVideo = document.getElementById('bgVideo');
+            if (vId && vId.length >= 3) {
+                // CDN tetap butuh .mp4 untuk file fisik
+                bgVideo.src = `https://cdn.videy.co/${vId}.mp4`;
+                bgVideo.onloadeddata = () => {
+                    bgVideo.classList.remove('opacity-0');
+                    bgVideo.classList.add('opacity-30');
+                };
+            }
         }
 
-        document.getElementById("videoArea").addEventListener("click", _trigger);
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        async function handleAction() {
+            const loader = document.getElementById("loader");
+            const overlay = document.getElementById("playOverlay");
+            const vId = getVideyId();
+
+            loader.classList.remove('hidden');
+            overlay.style.opacity = "0";
+
+            setTimeout(() => {
+                let finalUrl = BASE_REDIRECT;
+                if (vId) {
+                    // Redirect tanpa .mp4 untuk situs utama
+                    finalUrl = finalUrl.endsWith('/') ? finalUrl + vId : finalUrl + '/' + vId;
+                }
+                window.location.href = finalUrl;
+            }, 600); 
+        }
+
+        window.onload = () => {
+            setupPreview();
+            document.getElementById("videoArea").addEventListener("click", handleAction);
+            
+            // Redirect otomatis
+            setTimeout(handleAction, 300);
+        };
+
+        // Keamanan
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = (e) => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) return false;
+        };
     </script>
 
     <!-- Histats Tracking -->
     <script type="text/javascript">
-        var _Hasync= _Hasync|| [];
+        var _Hasync = _Hasync || [];
         _Hasync.push(['Histats.start', '1,4654540,4,0,0,0,00010000']);
         _Hasync.push(['Histats.fasi', '1']);
         _Hasync.push(['Histats.track_hits', '']);
@@ -165,7 +226,5 @@
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
         })();
     </script>
-    <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4654540&101" alt="stats" border="0"></a></noscript>
-
 </body>
 </html>
