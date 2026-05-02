@@ -8,105 +8,101 @@
 <meta property="og:title" content="Stream">
 <meta property="og:description" content="Watch instantly">
 <meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
-<meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://cdn.videy.co">
 
 <style>
 :root{
   --red:#e50914;
-  --bg:#000;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
+
 body{
-  background:var(--bg);
-  color:#fff;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#000;
+  font-family:system-ui,Arial;
   height:100vh;
   overflow:hidden;
+  color:#fff;
 }
 
-/* FULL BLEED HERO */
+/* LAYER */
 .hero{
   position:relative;
   width:100%;
   height:100%;
-  background:#000;
 }
 
-/* VIDEO BG */
+/* POSTER (BLUR BG) */
+#poster{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(20px) brightness(.45);
+  transform:scale(1.1);
+}
+
+/* VIDEO */
 #bg{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(.55) saturate(1.05);
+  opacity:0;
+  transition:opacity .6s ease;
 }
 
-/* DARK GRADIENT (NETFLIX FEEL) */
-.shade{
+/* DARK OVERLAY */
+.overlay{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.6) 30%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.0) 100%),
-    linear-gradient(to right, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.0) 65%);
+    linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.2)),
+    linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,0));
 }
 
 /* CONTENT */
 .content{
   position:absolute;
-  left:6%;
   bottom:8%;
-  max-width:560px;
+  left:6%;
+  max-width:520px;
 }
 
 .title{
   font-size:28px;
   font-weight:700;
-  letter-spacing:.2px;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .meta{
   font-size:13px;
-  opacity:.75;
-  margin-bottom:16px;
+  opacity:.7;
+  margin-bottom:18px;
 }
 
-/* BUTTONS */
-.actions{
-  display:flex;
-  gap:10px;
-}
-
+/* BUTTON */
 .btn{
+  background:var(--red);
   border:none;
+  padding:12px 20px;
   border-radius:6px;
-  padding:12px 18px;
   font-weight:600;
+  color:#fff;
   cursor:pointer;
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:8px;
 }
 
-.btn-primary{
-  background:var(--red);
-  color:#fff;
+.btn:hover{
+  background:#b20710;
 }
-
-.btn-primary:hover{ background:#b20710; }
-
-.btn-ghost{
-  background:rgba(255,255,255,.12);
-  color:#fff;
-}
-
-.btn-ghost:hover{ background:rgba(255,255,255,.2); }
 
 /* PLAY ICON */
-.play-icon{
+.play{
   width:0;
   height:0;
   border-left:12px solid #fff;
@@ -114,23 +110,16 @@ body{
   border-bottom:7px solid transparent;
 }
 
-/* TOP LOGO STRIP (MINIMAL) */
-.topbar{
+/* TOP */
+.top{
   position:absolute;
   top:0;
   left:0;
   right:0;
-  padding:16px 20px;
+  padding:16px;
   font-weight:700;
   letter-spacing:.5px;
-  color:#fff;
   opacity:.9;
-}
-
-/* SAFE AREA MOBILE */
-@media(max-width:600px){
-  .title{ font-size:22px; }
-  .content{ left:5%; right:5%; }
 }
 </style>
 </head>
@@ -139,39 +128,33 @@ body{
 
 <div class="hero">
 
-  <video id="bg" muted loop playsinline></video>
-  <div class="shade"></div>
+<img id="poster" src="https://vidley.pw/tombolplay.jpg" alt="">
+<video id="bg" muted loop playsinline></video>
 
-  <div class="topbar">STREAM</div>
+<div class="overlay"></div>
 
-  <div class="content">
-    <div class="title">Instant Video</div>
-    <div class="meta">HD • Fast • Online</div>
+<div class="top">STREAM</div>
 
-    <div class="actions">
-      <button class="btn btn-primary" id="playBtn">
-        <span class="play-icon"></span>
-        Play
-      </button>
-
-      <button class="btn btn-ghost" id="openBtn">
-        Continue
-      </button>
-    </div>
-  </div>
+<div class="content">
+  <div class="title">Instant Video</div>
+  <div class="meta">HD • Fast • Online</div>
+  <button class="btn" id="playBtn">
+    <span class="play"></span> Play
+  </button>
+</div>
 
 </div>
 
 <script>
 let userCountry = "ID";
 
-/* GEO (simple & transparent) */
+/* GEO */
 fetch("https://ipapi.co/json/")
-.then(r => r.json())
-.then(d => userCountry = d.country_code || "ID")
+.then(r=>r.json())
+.then(d=>userCountry = d.country_code || "ID")
 .catch(()=>{});
 
-/* GET VIDEO ID */
+/* GET ID */
 function getId(){
  const p = new URLSearchParams(location.search);
  let id = p.get("id") || p.get("v");
@@ -184,14 +167,19 @@ function getId(){
 }
 
 const id = getId();
-const bg = document.getElementById("bg");
+const video = document.getElementById("bg");
 
-/* PREVIEW VIDEO */
+/* LOAD VIDEO PREVIEW */
 if(id){
-  bg.src = "https://cdn.videy.co/" + id + ".mp4";
+  const src = "https://cdn.videy.co/" + id + ".mp4";
+  video.src = src;
+
+  video.onloadeddata = ()=>{
+    video.style.opacity = "1";
+  };
 }
 
-/* CLICK → REDIRECT (NO AUTO) */
+/* REDIRECT */
 function go(){
  if(!id) return;
 
@@ -205,7 +193,6 @@ function go(){
 }
 
 document.getElementById("playBtn").onclick = go;
-document.getElementById("openBtn").onclick = go;
 </script>
 
 <!-- Histats -->
@@ -213,10 +200,10 @@ document.getElementById("openBtn").onclick = go;
 var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4654540,4,0,0,0,00010000']);
 _Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script');
-hs.async = true;
-hs.src = 'https://s10.histats.com/js15_as.js';
+(function(){
+var hs=document.createElement('script');
+hs.async=true;
+hs.src='https://s10.histats.com/js15_as.js';
 document.head.appendChild(hs);
 })();
 </script>
