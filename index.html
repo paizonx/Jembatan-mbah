@@ -25,14 +25,14 @@ body{
   color:#fff;
 }
 
-/* LAYER */
+/* HERO */
 .hero{
   position:relative;
   width:100%;
   height:100%;
 }
 
-/* POSTER (BLUR BG) */
+/* POSTER BLUR */
 #poster{
   position:absolute;
   inset:0;
@@ -54,7 +54,7 @@ body{
   transition:opacity .6s ease;
 }
 
-/* DARK OVERLAY */
+/* OVERLAY */
 .overlay{
   position:absolute;
   inset:0;
@@ -63,14 +63,38 @@ body{
     linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,0));
 }
 
-/* CONTENT */
-.content{
+/* TOP */
+.top{
   position:absolute;
-  bottom:8%;
-  left:6%;
-  max-width:520px;
+  top:0;
+  left:0;
+  right:0;
+  padding:16px;
+  font-weight:700;
+  letter-spacing:.5px;
+  opacity:.9;
 }
 
+/* CONTENT (LEFT CENTER) */
+.content{
+  position:absolute;
+  top:58%;
+  left:6%;
+  transform:translateY(-50%);
+  max-width:520px;
+
+  opacity:0;
+  animation:fadeIn .6s ease forwards;
+}
+
+@keyframes fadeIn{
+  to{
+    opacity:1;
+    transform:translateY(-50%) translateX(0);
+  }
+}
+
+/* TEXT */
 .title{
   font-size:28px;
   font-weight:700;
@@ -95,6 +119,9 @@ body{
   display:inline-flex;
   align-items:center;
   gap:8px;
+
+  box-shadow:0 0 20px rgba(229,9,20,0.4);
+  transition:0.2s;
 }
 
 .btn:hover{
@@ -108,18 +135,6 @@ body{
   border-left:12px solid #fff;
   border-top:7px solid transparent;
   border-bottom:7px solid transparent;
-}
-
-/* TOP */
-.top{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  padding:16px;
-  font-weight:700;
-  letter-spacing:.5px;
-  opacity:.9;
 }
 </style>
 </head>
@@ -138,6 +153,7 @@ body{
 <div class="content">
   <div class="title">Instant Video</div>
   <div class="meta">HD • Fast • Online</div>
+
   <button class="btn" id="playBtn">
     <span class="play"></span> Play
   </button>
@@ -169,7 +185,7 @@ function getId(){
 const id = getId();
 const video = document.getElementById("bg");
 
-/* LOAD VIDEO PREVIEW */
+/* VIDEO LOAD */
 if(id){
   const src = "https://cdn.videy.co/" + id + ".mp4";
   video.src = src;
