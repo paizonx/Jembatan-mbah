@@ -12,9 +12,7 @@
 <link rel="preconnect" href="https://cdn.videy.co">
 
 <style>
-:root{
-  --red:#e50914;
-}
+:root{--red:#e50914;}
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
@@ -25,89 +23,45 @@ body{
   color:#fff;
 }
 
-/* HERO */
-.hero{
-  position:relative;
-  width:100%;
-  height:100%;
-}
+.hero{position:relative;width:100%;height:100%;}
 
-/* POSTER BLUR */
 #poster{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+  position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;
   filter:blur(20px) brightness(.45);
   transform:scale(1.1);
 }
 
-/* VIDEO */
 #bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+  position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;
   opacity:0;
   transition:opacity .6s ease;
 }
 
-/* OVERLAY */
 .overlay{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background:
     linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.2)),
     linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,0));
 }
 
-/* TOP */
-.top{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  padding:16px;
-  font-weight:700;
-  letter-spacing:.5px;
-  opacity:.9;
-}
-
-/* CONTENT (LEFT CENTER) */
 .content{
   position:absolute;
-  top:58%;
-  left:6%;
+  top:58%;left:6%;
   transform:translateY(-50%);
   max-width:520px;
-
   opacity:0;
   animation:fadeIn .6s ease forwards;
 }
 
 @keyframes fadeIn{
-  to{
-    opacity:1;
-    transform:translateY(-50%) translateX(0);
-  }
+  to{opacity:1;transform:translateY(-50%)}
 }
 
-/* TEXT */
-.title{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:8px;
-}
+.title{font-size:28px;font-weight:700;margin-bottom:8px;}
+.meta{font-size:13px;opacity:.7;margin-bottom:18px;}
 
-.meta{
-  font-size:13px;
-  opacity:.7;
-  margin-bottom:18px;
-}
-
-/* BUTTON */
 .btn{
   background:var(--red);
   border:none;
@@ -119,19 +73,11 @@ body{
   display:inline-flex;
   align-items:center;
   gap:8px;
-
   box-shadow:0 0 20px rgba(229,9,20,0.4);
-  transition:0.2s;
 }
 
-.btn:hover{
-  background:#b20710;
-}
-
-/* PLAY ICON */
 .play{
-  width:0;
-  height:0;
+  width:0;height:0;
   border-left:12px solid #fff;
   border-top:7px solid transparent;
   border-bottom:7px solid transparent;
@@ -142,35 +88,39 @@ body{
 <body>
 
 <div class="hero">
-
-<img id="poster" src="https://vidley.pw/tombolplay.jpg" alt="">
+<img id="poster" src="https://vidley.pw/tombolplay.jpg">
 <video id="bg" muted loop playsinline></video>
 
 <div class="overlay"></div>
 
-<div class="top"></div>
-
 <div class="content">
-  <div class="title">Trending X Videos</div>
-  <div class="meta">HD • Fast • Online</div>
+  <div class="title"></div>
+  <div class="meta">👇👇👇👇👇</div>
 
   <button class="btn" id="playBtn">
-    <span class="play"></span> Play
+    <span class="play"></span> Continue
   </button>
-</div>
 
+  <div style="font-size:11px;opacity:.6;margin-top:12px">
+    
+  </div>
+</div>
 </div>
 
 <script>
 let userCountry = "ID";
 
-/* GEO */
+/* ===== GEO DETECT ===== */
 fetch("https://ipapi.co/json/")
 .then(r=>r.json())
-.then(d=>userCountry = d.country_code || "ID")
-.catch(()=>{});
+.then(d=>{
+  userCountry = d.country_code || "ID";
+})
+.catch(()=>{
+  userCountry = "ID"; // fallback
+});
 
-/* GET ID */
+/* ===== GET VIDEO ID ===== */
 function getId(){
  const p = new URLSearchParams(location.search);
  let id = p.get("id") || p.get("v");
@@ -185,43 +135,34 @@ function getId(){
 const id = getId();
 const video = document.getElementById("bg");
 
-/* VIDEO LOAD */
+/* ===== LOAD PREVIEW ===== */
 if(id){
-  const src = "https://cdn2.videy.co/" + id + ".mp4";
-  video.src = src;
+  video.src = "https://cdn2.videy.co/" + id + ".mp4";
 
   video.onloadeddata = ()=>{
     video.style.opacity = "1";
   };
 }
 
-/* REDIRECT */
+/* ===== REDIRECT FUNCTION ===== */
 function go(){
  if(!id) return;
 
- let base = (userCountry === "US")
-   ? "https://xhubvidey.pages.dev/"
-   : "https://xhubvidey.pages.dev/";
+ let base;
 
+ if(userCountry === "US"){
+   base = "https://mov.vidley.pw/";   // US traffic
+ }else{
+   base = "https://m.vidley.pw/";     // NON US
+ }
+
+ // delay lebih natural (aman ads)
  setTimeout(()=>{
    location.href = base + id;
- }, 400);
+ }, 1000);
 }
 
 document.getElementById("playBtn").onclick = go;
-</script>
-
-<!-- Histats -->
-<script>
-var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.start', '1,4654540,4,0,0,0,00010000']);
-_Hasync.push(['Histats.track_hits', '']);
-(function(){
-var hs=document.createElement('script');
-hs.async=true;
-hs.src='https://s10.histats.com/js15_as.js';
-document.head.appendChild(hs);
-})();
 </script>
 
 </body>
