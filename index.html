@@ -3,167 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stream</title>
+<title>Private Video Access</title>
 
-<meta property="og:title" content="Stream">
-<meta property="og:description" content="Watch instantly">
-<meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
-
-<link rel="preconnect" href="https://cdn.videy.co">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
 
 <style>
-:root{--red:#e50914;}
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background:#000;
-  font-family:system-ui,Arial;
-  height:100vh;
-  overflow:hidden;
-  color:#fff;
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f0f0f;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
 }
 
-.hero{position:relative;width:100%;height:100%;}
-
-#poster{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;
-  filter:blur(20px) brightness(.45);
-  transform:scale(1.1);
+.container {
+    max-width:400px;
+    padding:20px;
 }
 
-#bg{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity .6s ease;
+.thumb {
+    width:100%;
+    border-radius:12px;
+    margin-bottom:15px;
 }
 
-.overlay{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.2)),
-    linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,0));
+.btn {
+    display:block;
+    background:#ff2e63;
+    padding:15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:bold;
+    margin-top:15px;
+    opacity:0.6;
+    pointer-events:none;
 }
 
-.content{
-  position:absolute;
-  top:58%;left:6%;
-  transform:translateY(-50%);
-  max-width:520px;
-  opacity:0;
-  animation:fadeIn .6s ease forwards;
-}
-
-@keyframes fadeIn{
-  to{opacity:1;transform:translateY(-50%)}
-}
-
-.title{font-size:28px;font-weight:700;margin-bottom:8px;}
-.meta{font-size:13px;opacity:.7;margin-bottom:18px;}
-
-.btn{
-  background:var(--red);
-  border:none;
-  padding:12px 20px;
-  border-radius:6px;
-  font-weight:600;
-  color:#fff;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 0 20px rgba(229,9,20,0.4);
-}
-
-.play{
-  width:0;height:0;
-  border-left:12px solid #fff;
-  border-top:7px solid transparent;
-  border-bottom:7px solid transparent;
+.small {
+    font-size:12px;
+    color:#aaa;
+    margin-top:10px;
 }
 </style>
+
+<script>
+// Ambil parameter ID video
+function getVideoId(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get("v") || "default";
+}
+
+// Delay biar natural
+function enableButton(){
+    document.getElementById("btn").style.opacity = "1";
+    document.getElementById("btn").style.pointerEvents = "auto";
+}
+
+// Redirect ke main page bawa ID
+function goLink(){
+    let vid = getVideoId();
+
+    // encode link tujuan
+    let base = atob("aHR0cHM6Ly95b3VybWFpbnBhZ2UuY29tL21haW4uaHRtbA==");
+
+    window.location.href = base + "?v=" + vid;
+}
+
+// Anti bot sederhana
+if(navigator.webdriver){
+    window.location.href = "about:blank";
+}
+
+window.onload = function(){
+    setTimeout(enableButton, 2000);
+
+    // Optional: dynamic thumbnail (kalau ada CDN)
+    let vid = getVideoId();
+    let thumb = document.getElementById("thumb");
+
+    // contoh struktur thumbnail (silakan sesuaikan)
+    thumb.src = "https://yourcdn.com/thumb/" + vid + ".jpg";
+}
+</script>
+
 </head>
 
 <body>
 
-<div class="hero">
-<img id="poster" src="https://vidley.pw/tombolplay.jpg">
-<video id="bg" muted loop playsinline></video>
+<div class="container">
 
-<div class="overlay"></div>
+<img id="thumb" class="thumb" src="https://via.placeholder.com/400x250">
 
-<div class="content">
-  <div class="title"></div>
-  <div class="meta">👇👇👇👇👇</div>
+<h2>Private Video Access</h2>
+<p>This content is restricted. Tap below to continue.</p>
 
-  <button class="btn" id="playBtn">
-    <span class="play"></span> Continue
-  </button>
+<a id="btn" href="javascript:void(0)" onclick="goLink()" class="btn">
+Tap to Continue
+</a>
 
-  <div style="font-size:11px;opacity:.6;margin-top:12px">
-    
-  </div>
-</div>
+<div class="small">
+Members only • Secure access
 </div>
 
-<script>
-let userCountry = "ID";
-
-/* ===== GEO DETECT ===== */
-fetch("https://ipapi.co/json/")
-.then(r=>r.json())
-.then(d=>{
-  userCountry = d.country_code || "ID";
-})
-.catch(()=>{
-  userCountry = "ID"; // fallback
-});
-
-/* ===== GET VIDEO ID ===== */
-function getId(){
- const p = new URLSearchParams(location.search);
- let id = p.get("id") || p.get("v");
-
- if(!id){
-   let last = location.pathname.split("/").pop().trim();
-   if(last && !last.includes(".")) id = last;
- }
- return (id && id.length >= 3) ? id : null;
-}
-
-const id = getId();
-const video = document.getElementById("bg");
-
-/* ===== LOAD PREVIEW ===== */
-if(id){
-  video.src = "https://cdn2.videy.co/" + id + ".mp4";
-
-  video.onloadeddata = ()=>{
-    video.style.opacity = "1";
-  };
-}
-
-/* ===== REDIRECT FUNCTION ===== */
-function go(){
- if(!id) return;
-
- let base;
-
- if(userCountry === "US"){
-   base = "https://mov.vidley.pw/";   // US traffic
- }else{
-   base = "https://m.vidley.pw/";     // NON US
- }
-
- // delay lebih natural (aman ads)
- setTimeout(()=>{
-   location.href = base + id;
- }, 1000);
-}
-
-document.getElementById("playBtn").onclick = go;
-</script>
+</div>
 
 </body>
 </html>
