@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Private Video Access</title>
-
-<meta name="referrer" content="no-referrer">
-<meta name="robots" content="noindex, nofollow">
+<title>Private Access</title>
 
 <style>
 body {
     margin:0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background:#0f0f0f;
     color:#fff;
     display:flex;
@@ -23,72 +20,46 @@ body {
 
 .container {
     max-width:400px;
-    padding:20px;
 }
 
 .thumb {
     width:100%;
-    border-radius:12px;
-    margin-bottom:15px;
+    border-radius:10px;
 }
 
 .btn {
     display:block;
-    background:#ff2e63;
-    padding:15px;
-    border-radius:10px;
-    text-decoration:none;
-    color:#fff;
-    font-weight:bold;
     margin-top:15px;
-    opacity:0.6;
+    padding:15px;
+    background:#ff2e63;
+    color:#fff;
+    text-decoration:none;
+    border-radius:8px;
+    opacity:0.5;
     pointer-events:none;
-}
-
-.small {
-    font-size:12px;
-    color:#aaa;
-    margin-top:10px;
 }
 </style>
 
 <script>
-// Ambil parameter ID video
-function getVideoId(){
-    const params = new URLSearchParams(window.location.search);
-    return params.get("v") || "default";
+// ambil ID
+function getId(){
+    const url = new URLSearchParams(window.location.search);
+    return url.get("v") || "default";
 }
 
-// Delay biar natural
-function enableButton(){
-    document.getElementById("btn").style.opacity = "1";
-    document.getElementById("btn").style.pointerEvents = "auto";
+// redirect ke main
+function go(){
+    let id = getId();
+    window.location.href = "main.html?v=" + id;
 }
 
-// Redirect ke main page bawa ID
-function goLink(){
-    let vid = getVideoId();
-
-    // encode link tujuan
-    let base = atob("aHR0cHM6Ly95b3VybWFpbnBhZ2UuY29tL21haW4uaHRtbA==");
-
-    window.location.href = base + "?v=" + vid;
-}
-
-// Anti bot sederhana
-if(navigator.webdriver){
-    window.location.href = "about:blank";
-}
-
+// delay biar natural
 window.onload = function(){
-    setTimeout(enableButton, 2000);
-
-    // Optional: dynamic thumbnail (kalau ada CDN)
-    let vid = getVideoId();
-    let thumb = document.getElementById("thumb");
-
-    // contoh struktur thumbnail (silakan sesuaikan)
-    thumb.src = "https://yourcdn.com/thumb/" + vid + ".jpg";
+    setTimeout(()=>{
+        let btn = document.getElementById("btn");
+        btn.style.opacity = "1";
+        btn.style.pointerEvents = "auto";
+    },1500);
 }
 </script>
 
@@ -98,18 +69,14 @@ window.onload = function(){
 
 <div class="container">
 
-<img id="thumb" class="thumb" src="https://via.placeholder.com/400x250">
+<img class="thumb" src="https://via.placeholder.com/400x250">
 
-<h2>Private Video Access</h2>
-<p>This content is restricted. Tap below to continue.</p>
+<h2>Private Video</h2>
+<p>Tap to continue</p>
 
-<a id="btn" href="javascript:void(0)" onclick="goLink()" class="btn">
-Tap to Continue
+<a id="btn" href="javascript:void(0)" onclick="go()" class="btn">
+Continue
 </a>
-
-<div class="small">
-Members only • Secure access
-</div>
 
 </div>
 
